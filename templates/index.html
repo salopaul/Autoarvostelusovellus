@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Autoarvostelut</title>
+</head>
+<body>
+    <h1>Autoarvostelut</h1>
+
+    <p>Hei! <a href="/logout">Kirjaudu ulos</a></p>
+
+    <!-- Haku -->
+    <form method="get" action="/">
+        <input type="text" name="q" placeholder="Hae merkkiä tai mallia" value="{{ query }}">
+        <button type="submit">Hae</button>
+    </form>
+
+    <p><a href="/add">Lisää uusi auto</a></p>
+
+    <table border="1" cellpadding="5" cellspacing="0">
+        <tr>
+            <th>ID</th>
+            <th>Merkki</th>
+            <th>Malli</th>
+            <th>Vuosi</th>
+            <th>Arvosana</th>
+            <th>Toiminnot</th>
+        </tr>
+        {% for car in cars %}
+        <tr>
+            <td>{{ car[0] }}</td>
+            <td>{{ car[1] }}</td>
+            <td>{{ car[2] }}</td>
+            <td>{{ car[3] }}</td>
+            <td>{{ car[4] }}</td>
+            <td>
+                <a href="/delete/{{ car[0] }}">Poista</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
