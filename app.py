@@ -198,6 +198,69 @@ def delete(id):
     db.commit()
     return redirect("/")
 
+# auton yksityiskohtasivu ja kommentointi
+@app.route("/car/<int:car_id>", methods=["GET", "POST"])
+def car_page(car_id):
+    db = get_db()
+
+    if request.method == "POST":
+        check_csrf()
+        db.execute("""
+            INSERT INTO comments (car_id, user_id, content, created_at)
+            VALUES (?, ?, ?, datetime('now'))
+        """, (car_id, session["user_id"], request.form["content"]))
+        db.commit()
+
+    car = db.execute("""
+        SELECT cars.*, users.username
+        FROM cars
+        JOIN users ON cars.user_id = users.id
+        WHERE cars.id=?
+    """, (car_id,)).fetchone()
+
+    comments = db.execute("""
+        SELECT comments.content, comments.created_at, users.username
+        FROM comments
+        JOIN users ON comments.user_id = users.id
+        WHERE car_id=?
+        ORDER BY created_at DESC
+    """, (car_id,)).fetchall()
+
+    return render_template("car.html", car=car, comments=comments)
+
+# käyttäjäsivu, jossa omat autot, autolaskurit ja keskiarvoarvostelu
+@app.route("/user/<int:user_id>")
+def user_page(user_id):
+    db = get_db()
+
+    user = db.execute(
+        "SELECT username FROM users WHERE id=?",
+        (user_id,)
+    ).fetchone()
+
+    cars = db.execute(
+        "SELECT * FROM cars WHERE user_id=?",
+        (user_id,)
+    ).fetchall()
+
+    count = db.execute(
+        "SELECT COUNT(*) FROM cars WHERE user_id=?",
+        (user_id,)
+    ).fetchone()[0]
+
+    avg = db.execute(
+        "SELECT AVG(rating) FROM cars WHERE user_id=?",
+        (user_id,)
+    ).fetchone()[0]
+
+    return render_template(
+        "user.html",
+        user=user,
+        cars=cars,
+        count=count,
+        avg=avg
+    )
+
 if __name__ == "__main__":
     init_db()  # tietokanta luodaan tarvittaessa heti
     app.run(debug=True)

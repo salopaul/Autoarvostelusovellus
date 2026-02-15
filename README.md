@@ -15,6 +15,15 @@ Välipalautus 2:
 *Käyttäjä pystyy etsimään autoarvosteluita merkin ja mallin perusteella
 *Käyttäjä pystyy kirjautua ulos
 
+Välipalautus 3:
+*Korjattu virheitä
+*Laajennettu SQL
+*Autojen muokkaus lisätty
+*CSRF-suojaus lisätty
+*Käyttäjäsivu ja tilastot lisätty
+*Autoille omat sivut ja kommentit
+*html cars ja user lisätty
+
 Sovelluksen käynnistys: 
 *Lataa projekti tietokoneelle
 *Avaa projekti esimerkiksi VS Codessa

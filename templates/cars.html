@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<h1>{{ car.brand }} {{ car.model }}</h1>
+<p>Vuosi: {{ car.year }} | Arvosana: {{ car.rating }}</p>
+
+<h2>Kommentit</h2>
+<ul>
+{% for comment in comments %}
+    <li>{{ comment.username }}: {{ comment.content }} ({{ comment.created_at }})</li>
+{% endfor %}
+</ul>
+
+<form method="POST" action="/car/{{ car.id }}">
+    <input type="hidden" name="csrf_token" value="{{ session['csrf_token'] }}">
+    <textarea name="content" placeholder="Kirjoita kommentti..." required></textarea>
+    <button type="submit">Lisää kommentti</button>
+</form>
+</html>
