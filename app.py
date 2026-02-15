@@ -1,11 +1,15 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, abort
 import sqlite3
 import os
+import secrets
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
-app.secret_key = "secret"  # tarve sessioille, ei poisteta
+app.secret_key = "secret"
 
 DB = "database.db"
+
+
 
 # funktio tietokannan luomiseen
 def init_db():
@@ -15,9 +19,12 @@ def init_db():
             db.executescript(f.read())
         db.close()
 
-# funktio tietokantayhteyden saamiseen
+
 def get_db():
-    return sqlite3.connect(DB)
+    db = sqlite3.connect(DB)
+    db.row_factory = sqlite3.Row
+    return db
+
 
 # rekisteröinti
 @app.route("/register", methods=["GET", "POST"])
