@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form method="POST">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+Merkki: <input name="brand" value="{{ car.brand }}"><br>
+Malli: <input name="model" value="{{ car.model }}"><br>
+Vuosi: <input name="year" value="{{ car.year }}"><br>
+Arvosana: <input name="rating" value="{{ car.rating }}"><br>
+
+{% for cat in categories %}
+<input type="checkbox" name="categories" value="{{ cat.id }}"
+{% if cat.id in selected_ids %}checked{% endif %}>
+{{ cat.name }}<br>
+{% endfor %}
+
+<button type="submit">Tallenna</button>
+</form>
+
+{% endblock %}

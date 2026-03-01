@@ -1,43 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Autoarvostelut</title>
-</head>
-<body>
-    <h1>Autoarvostelut</h1>
+{% extends "base.html" %}
+{% block content %}
 
-    <p>Hei! <a href="/logout">Kirjaudu ulos</a></p>
+<form method="GET">
+    <input name="q" value="{{ query }}">
+    <button type="submit">Hae</button>
+</form>
 
-    <!-- Haku -->
-    <form method="get" action="/">
-        <input type="text" name="q" placeholder="Hae merkkiä tai mallia" value="{{ query }}">
-        <button type="submit">Hae</button>
-    </form>
+{% for car in cars %}
+<p>
+<a href="/car/{{ car.id }}">{{ car.brand }} {{ car.model }}</a>
+({{ car.year }}) Arvosana:  {{ car.rating }}
+Lisännyt: <a href="/user/{{ car.user_id }}">{{ car.username }}</a>
 
-    <p><a href="/add">Lisää uusi auto</a></p>
+{% if car.user_id == session.user_id %}
+<a href="/edit/{{ car.id }}">Muokkaa</a>
+<form action="/delete/{{ car.id }}" method="POST" style="display:inline;">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+<button type="submit">Poista</button>
+</form>
+{% endif %}
+</p>
+{% endfor %}
 
-    <table border="1" cellpadding="5" cellspacing="0">
-        <tr>
-            <th>ID</th>
-            <th>Merkki</th>
-            <th>Malli</th>
-            <th>Vuosi</th>
-            <th>Arvosana</th>
-            <th>Toiminnot</th>
-        </tr>
-        {% for car in cars %}
-        <tr>
-            <td>{{ car[0] }}</td>
-            <td>{{ car[1] }}</td>
-            <td>{{ car[2] }}</td>
-            <td>{{ car[3] }}</td>
-            <td>{{ car[4] }}</td>
-            <td>
-                <a href="/delete/{{ car[0] }}">Poista</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-</body>
-</html>
+{% endblock %}

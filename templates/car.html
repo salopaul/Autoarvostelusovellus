@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>{{ car.brand }} {{ car.model }}</h2>
+<p>Vuosi: {{ car.year }}</p>
+<p>Arvosana: {{ car.rating }}</p>
+<p>Lisännyt: <a href="/user/{{ car.user_id }}">{{ car.username }}</a></p>
+
+<hr>
+
+<h3>Kommentit</h3>
+
+{% if comments %}
+    {% for c in comments %}
+        <p>
+            <b>{{ c.username }}</b>
+            ({{ c.created_at }}):<br>
+            {{ c.content }}
+        </p>
+        <hr>
+    {% endfor %}
+{% else %}
+    <p>Ei vielä kommentteja.</p>
+{% endif %}
+
+{% if session.user_id %}
+<h3>Lisää kommentti</h3>
+<form method="POST">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    <textarea name="content" rows="4" cols="40" required></textarea><br>
+    <button type="submit">Lähetä</button>
+</form>
+{% else %}
+<p><a href="/login">Kirjaudu sisään</a> kommentoidaksesi.</p>
+{% endif %}
+
+{% endblock %}

@@ -6,7 +6,7 @@
 * Käyttäjä pystyy etsimään eri autojen arvosteluita hakusanalla tai muulla perusteella. Käyttäjä pystyy hakemaan sekä itse lisäämiään että muiden käyttäjien lisäämiä arvosteluita.
 * Sovelluksessa on käyttäjäsivut, jotka näyttävät jokaisesta käyttäjästä tilastoja ja käyttäjän lisäämät arvostelut.
 * Käyttäjä pystyy valitsemaan arvostelulle yhden tai useamman luokittelun (esim. hinta, auton koko ja tyyli). 
-* Käyttäjä voi tykätä tai ei tykätä muiden käyttäjien arvosteluista, sekä kommentoida muiden käyttäjien arvosteluihin.
+* Käyttäjä voi kommentoida omiin autoarvosteluihinsa, sekä muiden käyttäjien autoarvosteluihin.
 
 Välipalautus 2:
 *Käyttäjä pystyy luomaan tunnuksen ja kirjautumaan sisään sovellukseen.
@@ -23,6 +23,16 @@ Välipalautus 3:
 *Käyttäjäsivu ja tilastot lisätty
 *Autoille omat sivut ja kommentit
 *html cars ja user lisätty
+
+Lopullinen palautus: 
+*Lisätty loput html templatet
+*Csrf suojaus korjattu
+*Schema.sql korjattu
+*Lisätty kommentit
+*Muokkaus toimii nyt
+*Salasanojen suojaus parannettu
+*Poisto operaatiot parannettu
+*Käyttäjäsivu korjattu
 
 Sovelluksen käynnistys: 
 *Lataa projekti tietokoneelle

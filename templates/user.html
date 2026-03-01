@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Käyttäjä: {{ user.username }}</h2>
+<p>Autoja: {{ count }}</p>
+<p>Keskiarvo: {{ avg }}</p>
+
+{% for car in cars %}
+<p><a href="/car/{{ car.id }}">{{ car.brand }} {{ car.model }}</a>
+Arvosana:  {{ car.rating }}</p>
+{% endfor %}
+
+{% endblock %}

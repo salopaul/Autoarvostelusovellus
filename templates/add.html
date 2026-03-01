@@ -1,28 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Lisää auto</title>
-</head>
-<body>
-    <h1>Lisää uusi auto</h1>
+{% extends "base.html" %}
+{% block content %}
 
-    <form method="post">
-        <label>Merkki:</label><br>
-        <input type="text" name="brand" required><br><br>
+<form method="POST">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+Merkki: <input name="brand"><br>
+Malli: <input name="model"><br>
+Vuosi: <input name="year"><br>
+Arvosana (1-5): <input name="rating"><br>
 
-        <label>Malli:</label><br>
-        <input type="text" name="model" required><br><br>
+{% for cat in categories %}
+<input type="checkbox" name="categories" value="{{ cat.id }}">
+{{ cat.name }}<br>
+{% endfor %}
 
-        <label>Vuosi:</label><br>
-        <input type="number" name="year" required><br><br>
+<button type="submit">Lisää</button>
+</form>
 
-        <label>Arvosana (1–5):</label><br>
-        <input type="number" name="rating" min="1" max="5" required><br><br>
-
-        <button type="submit">Lisää</button>
-    </form>
-
-    <p><a href="/">Takaisin etusivulle</a></p>
-</body>
-</html>
+{% endblock %}

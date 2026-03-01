@@ -3,3 +3,5 @@ database.db
 venv/
 
 .vscode/
+
+__pycache__/

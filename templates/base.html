@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Autokanta</title>
+</head>
+<body>
+{% if session.user_id %}
+<a href="/">Etusivu</a> |
+<a href="/add">Lisää auto</a> |
+<a href="/logout">Kirjaudu ulos</a>
+<hr>
+{% endif %}
+
+{% block content %}{% endblock %}
+</body>
+</html>
